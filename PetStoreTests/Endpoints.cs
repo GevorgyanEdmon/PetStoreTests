@@ -9,6 +9,7 @@ namespace PetTest
     public static class Endpoints
     {
         public const string Pet = "pet";
+        public const string Store = "store";
 
     }
 }
