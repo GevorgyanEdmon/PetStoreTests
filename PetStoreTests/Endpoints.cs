@@ -10,6 +10,7 @@ namespace PetTest
     {
         public const string Pet = "pet";
         public const string Store = "store";
+        public const string User = "user";
 
     }
 }
