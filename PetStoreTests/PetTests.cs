@@ -47,5 +47,16 @@ namespace PetStoreTests
             Assert.AreEqual(newPet.Name, getResponse.Data.Name);
 
         }
+        [TestMethod]
+        public void GetPetsByStatus_ShouldReturnOnlyAvailable()
+        { 
+         var request = new RestRequest($"{Endpoints.Pet}/findByStatus", Method.Get);
+            request.AddQueryParameter("status", "available");
+            var response = client.Execute<List<Pet>>(request);
+            Assert.AreEqual (HttpStatusCode.OK, response.StatusCode);
+            Assert.IsTrue(response.Data.Count > 0);
+            foreach (var pet in response.Data)
+                Assert.AreEqual("available", pet.Status, $"Ошибка! Питомец {pet.Id} имеет неверный статус.");
+        }
     }
 }
