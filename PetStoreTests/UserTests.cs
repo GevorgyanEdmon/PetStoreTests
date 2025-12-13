@@ -31,5 +31,28 @@ namespace PetStoreTests
             Assert.AreEqual(HttpStatusCode.OK, getresponse.StatusCode);
             Assert.IsTrue(getresponse.Content.Contains("logged in"));
         }
+        [TestMethod]
+        public void CreateUser_WithInvalidStatusType_ShouldReturnError()
+        {
+            var badUser = new
+            { 
+            id = 0,
+            username = "badUser",
+            userStatus = "iamstring"
+            };
+            var request = new RestRequest (Endpoints.User,Method.Post);
+            request.AddBody(badUser);
+            var response = client.Execute (request);
+            Assert.AreEqual (HttpStatusCode.InternalServerError, response.StatusCode);
+        }
+        [TestMethod]
+        public void reatePet_WithEmptyBody_ShouldReturnError()
+        {
+            var emptyBody = new { };
+            var request = new RestRequest(Endpoints.Pet, Method.Post);
+            request.AddBody(emptyBody);
+            var response = client.Execute (request);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
+        }
     }
 }
